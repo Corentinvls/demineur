@@ -28,8 +28,11 @@
 <script type="text/javascript">
     function newgame(){
         grid=[];
-        generategrid(30);
+        bombsIndex=[];
+        generategrid(5);
+        generateBombs(5,10);
         console.log(grid);
+        console.log(bombsIndex)
     }
 
 
@@ -43,6 +46,18 @@
             grid.push(rows);
         }
     }
+
+    function generateBombs(size,nbBomb) {
+        for (i = 0; i < nbBomb; i++) {
+            var bombIndexX = Math.floor(Math.random() * (size+1));
+            console.log(bombIndexX);
+            var bombIndexY = Math.floor(Math.random() * (size+1));
+            console.log(bombIndexY);
+            bombsIndex.push([bombIndexX,bombIndexY]);
+        }
+    function setTileValue()
+    }
+
 
 
 
