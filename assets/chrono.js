@@ -3,8 +3,8 @@ function newGame() {
     fStart()
     grid = new Array();
     bombsIndex = new Array();
-    generategrid(4);
-    generateBombs(10);
+    generategrid(10);
+    generateBombs(20);
     console.log(bombsIndex)
 }
 
@@ -16,8 +16,6 @@ function generategrid(size) {
             grid[u][i] = 0;
         }
     }
-
-
 }
 
 function generateBombs(nbBomb) {
@@ -30,14 +28,31 @@ function generateBombs(nbBomb) {
         }
         setTileValue(x, y, 9);
         bombsIndex.push([x,y])
+        updateTiles(x,y)
     }
 }
 
+function updateTiles(x,y){
+    console.log(x)
+    console.log(y)
+
+    for (j = x-1; j <= x+1; j++) {
+        if (j==-1 || j == (grid.length))
+            continue;
+        for (k = y-1; k <= y+1; k++) {
+            if (k==-1 || k == (grid.length))
+                continue;
+
+                if (grid[j][k] != 9)
+                    grid[j][k]++;
+            }
+        }
+
+}
+
+
 function setTileValue(rowIndex, columnIndex, value) {
-
     grid[rowIndex][columnIndex] = value;
-
-
 }
 
 function getTileValue(indexX, indexY) {
