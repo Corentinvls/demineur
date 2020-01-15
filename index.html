@@ -17,7 +17,7 @@
             <option id="expert" value="expert">Expert : 22x22 cases, 100 bombes</option>
             <option id="maitre" value="maitre">Maître : 30x30 cases, 250 bombes</option>
         </select>
-        <button id="newgame" type="button" onclick="newgame()">Nouvelle partie</button>
+        <button  type="button" onclick="newgame()">Nouvelle partie</button>
         <span><strong>Time : </strong></span><span id="chronotime">00:00</span>
     </form>
     <hr>
@@ -26,6 +26,25 @@
 
 </div>
 <script type="text/javascript">
+    function newgame(){
+        grid=[];
+        generategrid(30);
+        console.log(grid);
+    }
+
+
+    function generategrid(size) {
+        rows = [];
+        for (i = 0; i < size; i++) {
+            rows.push(0);
+        }
+
+        for (i = 0; i < size ; i++) {
+            grid.push(rows);
+        }
+    }
+
+
 
 </script>
 </body>
