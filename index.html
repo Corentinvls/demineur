@@ -27,35 +27,46 @@
 </div>
 <script type="text/javascript">
     function newgame(){
-        grid=[];
+        grid=new Array();
         bombsIndex=[];
-        generategrid(5);
-        generateBombs(5,10);
-        console.log(grid);
-        console.log(bombsIndex)
+        generategrid(10);
+        console.log(grid)
+       generateBombs(10);
     }
 
 
     function generategrid(size) {
-        rows = [];
-        for (i = 0; i < size; i++) {
-            rows.push(0);
+        for ( u = 0; u < size; u++) {
+            grid[u]=new Array()
+            for ( i = 0; i < size ; i++) {
+                grid[u][i]=0;
+            }
         }
 
-        for (i = 0; i < size ; i++) {
-            grid.push(rows);
-        }
+
     }
 
-    function generateBombs(size,nbBomb) {
+    function generateBombs(nbBomb) {
         for (i = 0; i < nbBomb; i++) {
-            var bombIndexX = Math.floor(Math.random() * (size+1));
-            console.log(bombIndexX);
-            var bombIndexY = Math.floor(Math.random() * (size+1));
-            console.log(bombIndexY);
-            bombsIndex.push([bombIndexX,bombIndexY]);
+            var bombIndexX = Math.floor(Math.random() * grid.length);
+            var bombIndexY = Math.floor(Math.random() * grid.length);
+            setTileValue(bombIndexX,bombIndexY,9);
+            console.log(grid);
+            bombsIndex.push([bombIndexX, bombIndexY]);
+            console.log(bombsIndex)
         }
-    function setTileValue()
+
+
+    }
+    function setTileValue(rowIndex,columnIndex,value) {
+
+        grid[rowIndex][columnIndex]=value;
+
+
+    }
+
+    function getTileValue(indexX, indexY) {
+        return grid[indexX][indexY];
     }
 
 
