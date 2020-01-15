@@ -3,3 +3,7 @@ header{
     width: 80%;
     text-align: center;
 }
+
+body{
+    background-color: pink;
+}
