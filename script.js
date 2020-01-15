@@ -23,7 +23,7 @@ function fChrono() {
       affTime(tmInterv);
 }
 function newGame() {
-      fStop();
+      fReset();
       if (tmInterv == 0) {
             tmStart = new Date();
       } else {
@@ -34,13 +34,7 @@ function newGame() {
       setTm = setInterval(fChrono, 50);
 }
 
-function fStop() {
-      clearInterval(setTm);
-      tTime[nTime] = tmInterv;
-}
-
 function fReset() {
-      fStop();
       tmStart = 0;
       tmInterv = 0;
       tTime = [];
