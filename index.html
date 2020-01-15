@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="assets/style.css">
     <meta charset="UTF-8">
@@ -7,26 +8,25 @@
 </head>
 
 <body>
-<header>
-    <h1 id="maintitle">Démineur</h1>
-    <form>
-        <select id="difficulty" name="difficulty">
-            <option value="label" disabled selected >Niveaux de difficulté</option>
-            <option id="debutant" value="debutant">Débutant : 9x9 cases, 10 bombes</option>
-            <option id="intermediaire"value="intermediaire">Intermédiaire : 16x16 cases, 40 bombes</option>
-            <option id="expert" value="expert">Expert : 22x22 cases, 100 bombes</option>
-            <option id="maitre" value="maitre">Maître : 30x30 cases, 250 bombes</option>
-        </select>
-        <button id="newgame" type="button" onclick="newgame()">Nouvelle partie</button>
-        <span><strong>Time : </strong></span><span id="chronotime">00:00</span>
-    </form>
-    <hr>
-</header>
-<div id="game">
+    <header>
+        <h1 id="maintitle">Démineur</h1>
+        <form>
+            <select id="difficulty" name="difficulty">
+                <option value="label" disabled selected>Niveaux de difficulté</option>
+                <option id="debutant" value="debutant">Débutant : 9x9 cases, 10 bombes</option>
+                <option id="intermediaire" value="intermediaire">Intermédiaire : 16x16 cases, 40 bombes</option>
+                <option id="expert" value="expert">Expert : 22x22 cases, 100 bombes</option>
+                <option id="maitre" value="maitre">Maître : 30x30 cases, 250 bombes</option>
+            </select>
+            <button id="newgame" type="button" onClick="newGame()">Nouvelle partie</button>
+            <span><strong>Time : </strong></span><span id="chronotime">00:00</span>
+        </form>
+        <hr>
+    </header>
+    <div id="game">
 
-</div>
-<script type="text/javascript">
-
-</script>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>
