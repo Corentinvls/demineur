@@ -11,13 +11,13 @@
     <h1 id="maintitle">Démineur</h1>
     <form>
         <select id="difficulty" name="difficulty">
-            <option value="label" disabled selected >Niveaux de difficulté</option>
+            <option value="label" disabled selected>Niveaux de difficulté</option>
             <option id="debutant" value="debutant">Débutant : 9x9 cases, 10 bombes</option>
-            <option id="intermediaire"value="intermediaire">Intermédiaire : 16x16 cases, 40 bombes</option>
+            <option id="intermediaire" value="intermediaire">Intermédiaire : 16x16 cases, 40 bombes</option>
             <option id="expert" value="expert">Expert : 22x22 cases, 100 bombes</option>
             <option id="maitre" value="maitre">Maître : 30x30 cases, 250 bombes</option>
         </select>
-        <button  type="button" onclick="newgame()">Nouvelle partie</button>
+        <button type="button" onclick="newgame()">Nouvelle partie</button>
         <span><strong>Time : </strong></span><span id="chronotime">00:00</span>
     </form>
     <hr>
@@ -26,20 +26,20 @@
 
 </div>
 <script type="text/javascript">
-    function newgame(){
-        grid=new Array();
-        bombsIndex=[];
-        generategrid(10);
+    function newgame() {
+        grid = new Array();
+        bombsIndex = new Array();
+        generategrid(4);
+        generateBombs(16);
         console.log(grid)
-       generateBombs(10);
     }
 
 
     function generategrid(size) {
-        for ( u = 0; u < size; u++) {
-            grid[u]=new Array()
-            for ( i = 0; i < size ; i++) {
-                grid[u][i]=0;
+        for (u = 0; u < size; u++) {
+            grid[u] = new Array()
+            for (i = 0; i < size; i++) {
+                grid[u][i] = 0;
             }
         }
 
@@ -48,19 +48,19 @@
 
     function generateBombs(nbBomb) {
         for (i = 0; i < nbBomb; i++) {
-            var bombIndexX = Math.floor(Math.random() * grid.length);
-            var bombIndexY = Math.floor(Math.random() * grid.length);
-            setTileValue(bombIndexX,bombIndexY,9);
-            console.log(grid);
-            bombsIndex.push([bombIndexX, bombIndexY]);
-            console.log(bombsIndex)
+            x = Math.floor(Math.random() * grid.length);
+            y = Math.floor(Math.random() * grid.length);
+            while (grid[x][y] == 9) {
+                x = Math.floor(Math.random() * grid.length);
+                y = Math.floor(Math.random() * grid.length);
+            }
+            setTileValue(x, y, 9);
         }
-
-
     }
-    function setTileValue(rowIndex,columnIndex,value) {
 
-        grid[rowIndex][columnIndex]=value;
+    function setTileValue(rowIndex, columnIndex, value) {
+
+        grid[rowIndex][columnIndex] = value;
 
 
     }
@@ -68,8 +68,6 @@
     function getTileValue(indexX, indexY) {
         return grid[indexX][indexY];
     }
-
-
 
 
 </script>
