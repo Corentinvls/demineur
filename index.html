@@ -30,8 +30,8 @@
         grid = new Array();
         bombsIndex = new Array();
         generategrid(4);
-        generateBombs(16);
-        console.log(grid)
+        generateBombs(10);
+        console.log(bombsIndex)
     }
 
 
@@ -55,6 +55,7 @@
                 y = Math.floor(Math.random() * grid.length);
             }
             setTileValue(x, y, 9);
+            bombsIndex.push([x,y])
         }
     }
 
