@@ -1,8 +1,8 @@
-// main fonction
+//désactive le clique droit
 document.oncontextmenu = function () {
     return false;
 }
-
+// main fonction
 function newGame() {
     reset();
     grid = new Array();
@@ -15,6 +15,7 @@ function newGame() {
     generateHtml();
     fStart();
 }
+//adapte la difficultée suivant ce que l'utilisateur choisi
 function getDifficulty() {
     mySelect=document.getElementById("mySelect").selectedIndex
     switch (mySelect) {
@@ -98,11 +99,11 @@ function updateTiles(x, y) {
 function setTileValue(rowIndex, columnIndex, value) {
     grid[rowIndex][columnIndex] = value;
 }
-
+//getter
 function getTileValue(indexX, indexY) {
     return grid[indexX][indexY];
 }
-
+//genere la grille html
 function generateHtml() {
     for (o = 0; o < grid.length; o++) {
         var div = document.createElement('div');
@@ -124,7 +125,7 @@ function generateHtml() {
 
     }
 }
-
+//vide le game
 function reset() {
     document.getElementById("game").innerHTML = '';
     document.getElementById("maintitle").innerHTML = "Démineur";
@@ -231,7 +232,7 @@ function lose() {
         }
     }
     document.getElementById("maintitle").innerHTML = "Perdu !!";
-    // fStop();
+    fStop();
 
 }
 
@@ -257,7 +258,7 @@ function win (){
                 }
             }
             document.getElementById("maintitle").innerHTML = "Gagné !!";
-            // fStop();
+             fStop();
         }
         else{return}
     }
@@ -312,3 +313,5 @@ function fReset() { //on efface tout
     nTime = 0;
     document.getElementById("chronotime").innerHTML = "00:00";
 }
+
+function fStop(){ clearTimeout(setTm)}
