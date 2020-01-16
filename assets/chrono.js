@@ -1,6 +1,7 @@
 // main fonction
 function newGame() {
-    fStart()
+    reset();
+    fStart();
     grid = new Array();
     bombsIndex = new Array();
     generategrid(10);
@@ -68,10 +69,6 @@ function getTileValue(indexX, indexY) {
 }
 
 function generateHtml() {
-   // document.getElementById('game').style.display=grid;
-   // document.getElementById('game').style.justifyContent=center;
-  //  document.getElementById('game').style.alignItems=center;
-   // document.getElementById('game').style.gridTemplateColumn=repeat(grid.length, grid.length);
     for(o=0;o<grid.length;o++){
         for(p=0;p<grid.length;p++){
             var img = document.createElement('img');
@@ -84,7 +81,28 @@ function generateHtml() {
         };
     }
 }
+function reset() {
+    document.getElementById("game").innerHTML = '';
+}
+function selectedTile(x,y) {
+    console.log(x+","+y)
+    /*for (j = x-1; j <= x+1; j++) {
+        //gestion hors map
+        if (j==-1 || j == (grid.length))
+            continue;
+        //defilement de gauche a droite
+        for (k = y-1; k <= y+1; k++) {
+            //gestion hors map
+            if (k==-1 || k == (grid.length))
+                continue;
+            //incrémente la case si ce n'est pas une bombe
+            reveal();
+            if (grid[j][k] == 9)
+                lose
 
+        }
+    }*/
+}
 
 
 
