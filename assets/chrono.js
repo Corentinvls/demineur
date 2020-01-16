@@ -122,13 +122,21 @@ function generateHtml() {
             img.setAttributeNode(att);
             document.getElementById(o).appendChild(img);
         }
-
     }
+    var divf = document.createElement('div');
+    divf.setAttribute("id", "flags")
+    document.getElementById("game").appendChild(divf);
+
+    var h = document.createElement('h3');
+    h.setAttribute("id", "flagL");
+    h.innerHTML="Drapeau restant : "+nbBomb;
+    document.getElementById("flags").appendChild(h);
 }
 //vide le game
 function reset() {
     document.getElementById("game").innerHTML = '';
     document.getElementById("maintitle").innerHTML = "Démineur";
+    document.getElementById("body").style.backgroundColor= "slategray";
     flag=0;
     flaged=[]
 }
@@ -232,9 +240,26 @@ function lose() {
         }
     }
     document.getElementById("maintitle").innerHTML = "Perdu !!";
+    document.getElementById("body").style.backgroundColor= "darkred";
     fStop();
 
 }
+
+
+function win (){
+        if(nbBomb==grid.length*grid.length-revealed.length) {
+            for (w = 0; w < grid.length; w++) {
+                for (c = 0; c < grid.length; c++) {
+                    document.getElementById("'" + w + ':' + c + "'").onclick = "";
+
+                }
+            }
+            document.getElementById("maintitle").innerHTML = "Gagné !!";
+            document.getElementById("body").style.backgroundColor= "green";
+             fStop();
+        }
+        else{return}
+    }
 
 function markTile(x, y) {
     if(document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/normal.png"){
@@ -247,23 +272,8 @@ function markTile(x, y) {
         document.getElementById("'" + x + ':' + y + "'").src = "assets/images/normal.png";
         flag--;
     }
-
+    document.getElementById("flagL").innerHTML = "Drapeau restant : " + (nbBomb-flag);
 }
-function win (){
-        if(nbBomb==grid.length*grid.length-revealed.length) {
-            for (w = 0; w < grid.length; w++) {
-                for (c = 0; c < grid.length; c++) {
-                    document.getElementById("'" + w + ':' + c + "'").onclick = "";
-
-                }
-            }
-            document.getElementById("maintitle").innerHTML = "Gagné !!";
-             fStop();
-        }
-        else{return}
-    }
-
-
 
 
 //section du chrono

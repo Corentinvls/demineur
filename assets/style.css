@@ -22,7 +22,7 @@ body{
 .cell {
     width:30px;
     height:30px;
-    background:#33CC33;
+    background:dimgray;
     cursor:pointer;
     border-left:solid 1px #666666;
     border-top:solid 1px #666666;
