@@ -12,9 +12,8 @@ body{
 }
 #game{
     display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-template-columns: repeat(10,10fr);
+    grid-gap: 0em;
     margin: 0;
-    width: 50%
+    grid-template-columns: repeat(9,9fr);
+
 }

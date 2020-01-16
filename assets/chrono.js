@@ -10,11 +10,12 @@ function newGame() {
     bombsIndex = new Array();
     revealed = new Array();
     temp = new Array();
-    size=10;
-    nbBomb=1;
+    size=20;
+    nbBomb=10;
     generategrid(size);
     generateBombs(nbBomb);
     generateHtml();
+    document.getElementById('game').style.gridTemplateColumns = "repeat("+size + s;
 
 }
 
@@ -101,9 +102,11 @@ function reset() {
     document.getElementById("game").innerHTML = '';
     document.getElementById("maintitle").innerHTML = "Démineur";
     flag=0;
+    flaged=[]
 }
 
 function selectedTile(x, y) {
+
     if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
         return
     }
@@ -147,6 +150,7 @@ function selectedTile(x, y) {
     }
 
 
+
 }
 
 function autoReveal() {
@@ -181,7 +185,9 @@ function reveal(x, y) {
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/bomb.png";
     if (grid[x][y] != 0 && grid[x][y] != 9)
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/" + grid[x][y] + ".png";
-    setTileValue(x, y, -1)
+    setTileValue(x, y, -1);
+    revealed.push([x,y]);
+    win();
 }
 
 
@@ -214,10 +220,21 @@ function markTile(x, y) {
         flag--;
     }
 
-
-
-
 }
+function win (){
+        if(nbBomb==grid.length*grid.length-revealed.length) {
+            for (w = 0; w < grid.length; w++) {
+                for (c = 0; c < grid.length; c++) {
+                    document.getElementById("'" + w + ':' + c + "'").onclick = "";
+
+                }
+            }
+            document.getElementById("maintitle").innerHTML = "Gagné !!";
+            // fStop();
+        }
+        else{return}
+    }
+
 
 
 
