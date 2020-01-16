@@ -42,11 +42,6 @@ function getTileValue(indexX, indexY) {
     return grid[indexX][indexY];
 }
 
-
-
-
-
-
 var setTm = 0;
 var start = 0;
 var now = 0;
