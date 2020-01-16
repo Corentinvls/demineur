@@ -5,7 +5,7 @@ function newGame() {
     bombsIndex = new Array();
     generategrid(10);
     generateBombs(20);
-    console.log(bombsIndex)
+    generateHtml();
 }
 
 //genere une grille carré d'une taille demander en paramètre
@@ -65,6 +65,24 @@ function setTileValue(rowIndex, columnIndex, value) {
 
 function getTileValue(indexX, indexY) {
     return grid[indexX][indexY];
+}
+
+function generateHtml() {
+   // document.getElementById('game').style.display=grid;
+   // document.getElementById('game').style.justifyContent=center;
+  //  document.getElementById('game').style.alignItems=center;
+   // document.getElementById('game').style.gridTemplateColumn=repeat(grid.length, grid.length);
+    for(o=0;o<grid.length;o++){
+        for(p=0;p<grid.length;p++){
+            var img = document.createElement('img');
+            img.setAttribute("src", "assets/images/normal.png");
+            img.setAttribute("id","'"+o.toString()+":"+p.toString()+"'")
+            var att = document.createAttribute("onclick");
+            att.value = "selectedTile(" + o.toString() + "," + p.toString() + ")";
+            img.setAttributeNode(att);
+            document.getElementById("game").appendChild(img);
+        };
+    }
 }
 
 
