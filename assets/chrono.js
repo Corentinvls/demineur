@@ -6,6 +6,7 @@ function newGame() {
     bombsIndex = new Array();
     revealed = new Array();
     temp = new Array();
+
     generategrid(10);
     generateBombs(10);
     generateHtml();
@@ -170,6 +171,19 @@ function selectedTile(x, y) {
 
     function lose() {
         console.log("vous vous etes pris une bombe")
+        for (b = 0; b < bombsIndex.length; b++) {
+            if(grid[bombsIndex[b][0]][bombsIndex[b][1]]!=-1)
+            reveal(bombsIndex[b][0],bombsIndex[b][1])
+        }
+        for (w=0;w<grid.length;w++){
+            for (c=0;c<grid.length;c++){
+                document.getElementById("'" + w.toString() + ':' + c.toString() + "'").onclick = "";
+
+            }
+        }
+        document.getElementById("maintitle").innerHTML = "Perdu !!";
+       // fStop();
+
     }
 
 
