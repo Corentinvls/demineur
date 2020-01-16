@@ -10,7 +10,7 @@ function newGame() {
     bombsIndex = new Array();
     revealed = new Array();
     temp = new Array();
-    size=20;
+    size=30;
     nbBomb=10;
     generategrid(size);
     generateBombs(nbBomb);
@@ -82,19 +82,23 @@ function getTileValue(indexX, indexY) {
 
 function generateHtml() {
     for (o = 0; o < grid.length; o++) {
+        var div = document.createElement('div');
+        div.setAttribute("id", o)
+        document.getElementById("game").appendChild(div);
         for (p = 0; p < grid.length; p++) {
             var img = document.createElement('img');
             img.setAttribute("src", "assets/images/normal.png");
             img.setAttribute("id", "'" + o.toString() + ":" + p.toString() + "'")
+            img.setAttribute("class","cell")
             var att = document.createAttribute("onclick");
             att.value = "selectedTile(" + o.toString() + "," + p.toString() + ")";
             img.setAttributeNode(att);
             var att = document.createAttribute("oncontextmenu");
             att.value = "markTile(" + o.toString() + "," + p.toString() + ")";
             img.setAttributeNode(att);
-            document.getElementById("game").appendChild(img);
+            document.getElementById(o).appendChild(img);
         }
-        ;
+
     }
 }
 

@@ -11,9 +11,26 @@ body{
     align-items: center;
 }
 #game{
-    display: grid;
-    grid-gap: 0em;
-    margin: 0;
-    grid-template-columns: repeat(9,9fr);
+    display:inline-block;
+    vertical-align:top;
+    grid-template-columns:auto ;
 
 }
+#game {
+    background: #888888;
+}
+.cell {
+    width:30px;
+    height:30px;
+    background:#33CC33;
+    cursor:pointer;
+    border-left:solid 1px #666666;
+    border-top:solid 1px #666666;
+    border-right:solid 1px #aaaaaa;
+    border-bottom:solid 1px #aaaaaa;
+}
+
+.cell:hover {
+    background:#338833;
+}
+
