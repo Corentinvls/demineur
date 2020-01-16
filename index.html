@@ -17,7 +17,7 @@
             <option id="expert" value="expert">Expert : 22x22 cases, 100 bombes</option>
             <option id="maitre" value="maitre">Maître : 30x30 cases, 250 bombes</option>
         </select>
-        <button id="newgame" type="button" onclick="fStart() ; newGame()">Nouvelle partie</button>
+        <button type="button" onclick="newGame()">Nouvelle partie</button>
         <span><strong>Time : </strong></span><span id="chronotime">00:00</span>
     </form>
     <hr>
@@ -25,53 +25,6 @@
 <div id="game">
 
 </div>
-<script src="chrono.js"></script>
-<script type="text/javascript">
-    function newGame() {
-        grid = new Array();
-        bombsIndex = new Array();
-        generategrid(4);
-        generateBombs(10);
-        console.log(bombsIndex)
-    }
-
-
-    function generategrid(size) {
-        for (u = 0; u < size; u++) {
-            grid[u] = new Array()
-            for (i = 0; i < size; i++) {
-                grid[u][i] = 0;
-            }
-        }
-
-
-    }
-
-    function generateBombs(nbBomb) {
-        for (i = 0; i < nbBomb; i++) {
-            x = Math.floor(Math.random() * grid.length);
-            y = Math.floor(Math.random() * grid.length);
-            while (grid[x][y] == 9) {
-                x = Math.floor(Math.random() * grid.length);
-                y = Math.floor(Math.random() * grid.length);
-            }
-            setTileValue(x, y, 9);
-            bombsIndex.push([x,y])
-        }
-    }
-
-    function setTileValue(rowIndex, columnIndex, value) {
-
-        grid[rowIndex][columnIndex] = value;
-
-
-    }
-
-    function getTileValue(indexX, indexY) {
-        return grid[indexX][indexY];
-    }
-
-
-</script>
+<script type='text/javascript' src="assets/chrono.js"></script>
 </body>
 </html>
