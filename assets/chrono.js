@@ -1,4 +1,8 @@
 // main fonction
+document.oncontextmenu = function () {
+    return false;
+}
+
 function newGame() {
     reset();
     fStart();
@@ -6,9 +10,10 @@ function newGame() {
     bombsIndex = new Array();
     revealed = new Array();
     temp = new Array();
-
-    generategrid(10);
-    generateBombs(10);
+    size=10;
+    nbBomb=1;
+    generategrid(size);
+    generateBombs(nbBomb);
     generateHtml();
 
 }
@@ -83,6 +88,9 @@ function generateHtml() {
             var att = document.createAttribute("onclick");
             att.value = "selectedTile(" + o.toString() + "," + p.toString() + ")";
             img.setAttributeNode(att);
+            var att = document.createAttribute("oncontextmenu");
+            att.value = "markTile(" + o.toString() + "," + p.toString() + ")";
+            img.setAttributeNode(att);
             document.getElementById("game").appendChild(img);
         }
         ;
@@ -91,12 +99,14 @@ function generateHtml() {
 
 function reset() {
     document.getElementById("game").innerHTML = '';
+    document.getElementById("maintitle").innerHTML = "Démineur";
+    flag=0;
 }
 
 function selectedTile(x, y) {
-
-
-
+    if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
+        return
+    }
     if (grid[x][y] == -1) {
         return;
     }
@@ -108,11 +118,8 @@ function selectedTile(x, y) {
     }
 
 
-
-
-
     if (grid[x][y] == 0) {
-        reveal(x,y)
+        reveal(x, y)
         for (j = x - 1; j <= x + 1; j++) {
             if (j == -1 || j == (grid.length))
                 continue;
@@ -122,7 +129,7 @@ function selectedTile(x, y) {
                 if (grid[j][k] == -1)
                     continue;
                 if (grid[j][k] > 0)
-                    reveal(j,k)
+                    reveal(j, k)
                 if (grid[j][k] == 0 && !myinclude(temp, [j, k])) {
                     temp.push([j, k]);
 
@@ -130,107 +137,134 @@ function selectedTile(x, y) {
 
             }
         }
-    while(temp.length!=0){autoReveal();}
+        while (temp.length != 0) {
+            autoReveal();
+        }
     }
 
-    if(grid[x][y] > -1){reveal(x, y);}
+    if (grid[x][y] > -1) {
+        reveal(x, y);
+    }
 
 
 }
 
-    function autoReveal() {
-            tempx = temp[0][0]
-            tempy = temp [0][1]
-            temp.shift()
-            selectedTile(tempx, tempy)
-    }
+function autoReveal() {
+    tempx = temp[0][0]
+    tempy = temp [0][1]
+    temp.shift()
+    selectedTile(tempx, tempy)
+}
 
-    function myinclude(tab, element) {
-        bool = false
-        for (a = 0; a < tab.length; a++) {
-            if (tab[a] == element) {
-                bool = true
-                return bool
-            }
+function myinclude(tab, element) {
+    bool = false
+    for (a = 0; a < tab.length; a++) {
+        if (tab[a] == element) {
+            bool = true
+            return bool
         }
-        return bool
+    }
+    return bool
+}
+
+
+function reveal(x, y) {
+    if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
+        return
     }
 
+    document.getElementById("'" + x.toString() + ':' + y.toString() + "'").onclick = "";
+    document.getElementById("'" + x.toString() + ':' + y.toString() + "'").oncontextmenu = "";
+    if (grid[x][y] == 0)
+        document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/empty.png";
+    if (grid[x][y] == 9)
+        document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/bomb.png";
+    if (grid[x][y] != 0 && grid[x][y] != 9)
+        document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/" + grid[x][y] + ".png";
+    setTileValue(x, y, -1)
+}
 
-    function reveal(x, y) {
 
-        document.getElementById("'" + x.toString() + ':' + y.toString() + "'").onclick = "";
-        if (grid[x][y] == 0)
-            document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/empty.png";
-        if (grid[x][y] == 9)
-            document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/bomb.png";
-        if (grid[x][y] != 0 && grid[x][y] != 9)
-            document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/" + grid[x][y] + ".png";
-        setTileValue(x, y, -1)
+function lose() {
+    console.log("vous vous etes pris une bombe")
+    for (b = 0; b < bombsIndex.length; b++) {
+        if (grid[bombsIndex[b][0]][bombsIndex[b][1]] != -1)
+            reveal(bombsIndex[b][0], bombsIndex[b][1])
     }
+    for (w = 0; w < grid.length; w++) {
+        for (c = 0; c < grid.length; c++) {
+            document.getElementById("'" + w + ':' + c + "'").onclick = "";
 
-    function lose() {
-        console.log("vous vous etes pris une bombe")
-        for (b = 0; b < bombsIndex.length; b++) {
-            if(grid[bombsIndex[b][0]][bombsIndex[b][1]]!=-1)
-            reveal(bombsIndex[b][0],bombsIndex[b][1])
         }
-        for (w=0;w<grid.length;w++){
-            for (c=0;c<grid.length;c++){
-                document.getElementById("'" + w.toString() + ':' + c.toString() + "'").onclick = "";
-
-            }
-        }
-        document.getElementById("maintitle").innerHTML = "Perdu !!";
-       // fStop();
-
     }
+    document.getElementById("maintitle").innerHTML = "Perdu !!";
+    // fStop();
+
+}
+
+function markTile(x, y) {
+    if(document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/normal.png"){
+        if(flag>=nbBomb)
+            return
+        document.getElementById("'" + x + ':' + y + "'").src = "assets/images/flag.png";
+        flag++;
+    }
+    else{
+        document.getElementById("'" + x + ':' + y + "'").src = "assets/images/normal.png";
+        flag--;
+    }
+
+
+
+
+}
+
 
 
 //section du chrono
-    var setTm = 0;
-    var start = 0;
-    var now = 0;
-    var diff = 0;
-    var tabTime = [];
-    var nTime = 0;
+var setTm = 0;
+var start = 0;
+var now = 0;
+var diff = 0;
+var tabTime = [];
+var nTime = 0;
 
-    function affTime(tm) {
-        var minutes = tm.getMinutes();
-        var secondes = tm.getSeconds();
+function affTime(tm) {
+    var minutes = tm.getMinutes();
+    var secondes = tm.getSeconds();
 
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (secondes < 10) {
-            secondes = "0" + secondes;
-        }
-        document.getElementById("chronotime").innerHTML = minutes + ":" + secondes;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
     }
+    if (secondes < 10) {
+        secondes = "0" + secondes;
+    }
+    document.getElementById("chronotime").innerHTML = minutes + ":" + secondes;
+}
 
-    function fChrono() {
+function fChrono() {
+    now = new Date();
+    Interv = now - start;
+    diff = new Date(Interv);
+    affTime(diff);
+}
+
+function fStart() {
+    fReset();
+    if (diff == 0) {
+        start = new Date();
+    } else {
         now = new Date();
-        Interv = now - start;
-        diff = new Date(Interv);
-        affTime(diff);
+        Pause = now - diff;
+        start = new Date(Pause);
     }
+    setTm = setInterval(fChrono, 10);
+}
 
-    function fStart() {
-        fReset();
-        if (diff == 0) {
-            start = new Date();
-        } else {
-            now = new Date();
-            Pause = now - diff;
-            start = new Date(Pause);
-        }
-        setTm = setInterval(fChrono, 10);
-    }
-
-    function fReset() { //on efface tout
-        start = 0;
-        diff = 0;
-        tabTime = [];
-        nTime = 0;
-        document.getElementById("chronotime").innerHTML = "00:00";
-    }
+function fReset() { //on efface tout
+    start = 0;
+    diff = 0;
+    tabTime = [];
+    nTime = 0;
+    document.getElementById("chronotime").innerHTML = "00:00";
+}
