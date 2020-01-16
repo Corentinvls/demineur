@@ -6,5 +6,15 @@ header{
 
 body{
     background-color: pink;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
-
+#game{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(10,10fr);
+    margin: 0;
+    width: 50%
+}

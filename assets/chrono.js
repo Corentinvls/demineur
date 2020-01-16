@@ -1,37 +1,42 @@
-function difficulties(){
-    var easy = {lines: 9, rows: 9, bombs: 10};
-}
-    
-function newGame(difficulty) {
+// main fonction
+
+
+function newGame() {
+    reset();
     fStart();
     this.settings;
     grid = new Array();
     bombsIndex = new Array();
-    this.settings = this.difficulties(difficulty);
-    this.generategrid();
-    
-
+    this.generategrid(9);
+    generateBombs(20);
+    generateHtml();
 }
 
-
+//genere une grille carré d'une taille demander en paramètre
 function generategrid(size) {
+    //lignes
     for (u = 0; u < size; u++) {
         grid[u] = new Array()
+        //contenu des lignes
         for (i = 0; i < size; i++) {
             grid[u][i] = 0;
         }
     }
 }
-
+//rempli la grille en fonction du nombre de bombe en paramètre
 function generateBombs(nbBomb) {
+    //boucle pour avoir le nombre de bombe demander
     for (i = 0; i < nbBomb; i++) {
         x = Math.floor(Math.random() * grid.length);
         y = Math.floor(Math.random() * grid.length);
+        // gestion des doublons
         while (grid[x][y] == 9) {
             x = Math.floor(Math.random() * grid.length);
             y = Math.floor(Math.random() * grid.length);
         }
+        //mise en place des bombes
         setTileValue(x, y, 9);
+        // tableau de coordonée de bombe
         bombsIndex.push([x,y])
         //incrémente les cases adjacantes
         updateTiles(x,y)
@@ -57,11 +62,9 @@ function updateTiles(x,y){
 
 }
 
+// setter de case
 function setTileValue(rowIndex, columnIndex, value) {
-
     grid[rowIndex][columnIndex] = value;
-
-
 }
 
 function getTileValue(indexX, indexY) {
@@ -69,10 +72,6 @@ function getTileValue(indexX, indexY) {
 }
 
 function generateHtml() {
-   // document.getElementById('game').style.display=grid;
-   // document.getElementById('game').style.justifyContent=center;
-  //  document.getElementById('game').style.alignItems=center;
-   // document.getElementById('game').style.gridTemplateColumn=repeat(grid.length, grid.length);
     for(o=0;o<grid.length;o++){
         for(p=0;p<grid.length;p++){
             var img = document.createElement('img');
@@ -84,6 +83,40 @@ function generateHtml() {
             document.getElementById("game").appendChild(img);
         };
     }
+}
+function reset() {
+    document.getElementById("game").innerHTML = '';
+}
+function selectedTile(x,y) {
+            reveal(x,y);
+            if (grid[x][y] == 9)
+                lose();
+            if(grid[x][y] == 0)
+                revealAdj(x,y);
+}
+function revealAdj(x,y) {
+    reveal(x,y);
+    for (j = x-1; j <= x+1; j++) {
+        if (j==-1 || j == (grid.length))
+            continue;
+        for (k = y-1; k <= y+1; k++) {
+            if (k==-1 || k == (grid.length))
+                continue;
+            reveal(j,k);
+        }
+    }
+}
+function reveal(x,y) {
+if(grid[x][y]==0)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/empty.png";
+if(grid[x][y]==9)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/bomb.png";
+if(grid[x][y]!=0 && grid[x][y]!=9)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/"+grid[x][y]+".png";
+
+}
+function lose(){
+    console.log("vous vous etes pris une bombe")
 }
 
 
