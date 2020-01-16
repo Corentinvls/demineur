@@ -222,7 +222,7 @@ function lose() {
     console.log("vous vous etes pris une bombe")
     for (b = 0; b < bombsIndex.length; b++) {
         if (grid[bombsIndex[b][0]][bombsIndex[b][1]] != -1)
-            reveal(bombsIndex[b][0], bombsIndex[b][1])
+        document.getElementById("'" + bombsIndex[b][0] + ':' + bombsIndex[b][1] + "'").src = "assets/images/bomb.png";
     }
     for (w = 0; w < grid.length; w++) {
         for (c = 0; c < grid.length; c++) {
