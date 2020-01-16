@@ -1,6 +1,5 @@
 // main fonction
 
-
 function newGame() {
     reset();
     fStart();
@@ -169,4 +168,10 @@ function fReset() { //on efface tout
     tabTime = [];
     nTime = 0;
     document.getElementById("chronotime").innerHTML = "00:00";
+}
+
+function fStop() {
+    clearInterval(setTm);
+    tabTime[nTime] = diff;
+
 }
