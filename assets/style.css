@@ -24,11 +24,9 @@ body{
     height:30px;
     background:dimgray;
     cursor:pointer;
-    border-left:solid 1px #666666;
-    border-top:solid 1px #666666;
-    border-right:solid 1px #aaaaaa;
-    border-bottom:solid 1px #aaaaaa;
+    border: none;
 }
+
 
 .cell:hover {
     background:#338833;

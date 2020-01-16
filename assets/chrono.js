@@ -2,6 +2,7 @@
 document.oncontextmenu = function () {
     return false;
 }
+
 // main fonction
 function newGame() {
     reset();
@@ -15,28 +16,29 @@ function newGame() {
     generateHtml();
     fStart();
 }
+
 //adapte la difficultée suivant ce que l'utilisateur choisi
 function getDifficulty() {
-    mySelect=document.getElementById("mySelect").selectedIndex
+    mySelect = document.getElementById("mySelect").selectedIndex
     switch (mySelect) {
         case 0:
             alert("Veuillez selectionner une difficultée")
             break;
         case 1:
-            size=9;
-            nbBomb=10;
+            size = 9;
+            nbBomb = 10;
             break
         case 2:
-            size=16;
-            nbBomb=40;
+            size = 16;
+            nbBomb = 40;
             break;
         case 3:
-            size=22;
-            nbBomb=100;
+            size = 22;
+            nbBomb = 100;
             break
         case 4:
-            size=30;
-            nbBomb=250;
+            size = 30;
+            nbBomb = 250;
             break
 
     }
@@ -99,21 +101,39 @@ function updateTiles(x, y) {
 function setTileValue(rowIndex, columnIndex, value) {
     grid[rowIndex][columnIndex] = value;
 }
+
 //getter
 function getTileValue(indexX, indexY) {
     return grid[indexX][indexY];
 }
+
 //genere la grille html
 function generateHtml() {
+//div label
+    var divf = document.createElement('div');
+    divf.setAttribute("id", "label")
+    document.getElementById("game").appendChild(divf);
+//label drapeau restant
+    var h = document.createElement('span');
+    h.setAttribute("id", "flagL");
+    h.innerHTML = "Drapeau restant : " + nbBomb;
+    document.getElementById("label").appendChild(h);
+//label bombe presente
+    var h1 = document.createElement('span');
+    h1.setAttribute("id", "BombL");
+    h1.innerHTML = " / Bombes : " + nbBomb;
+    document.getElementById("label").appendChild(h1);
+//genere les case
     for (o = 0; o < grid.length; o++) {
         var div = document.createElement('div');
         div.setAttribute("id", o)
+        div.setAttribute("class", "line")
         document.getElementById("game").appendChild(div);
         for (p = 0; p < grid.length; p++) {
             var img = document.createElement('img');
             img.setAttribute("src", "assets/images/normal.png");
             img.setAttribute("id", "'" + o.toString() + ":" + p.toString() + "'")
-            img.setAttribute("class","cell")
+            img.setAttribute("class", "cell")
             var att = document.createAttribute("onclick");
             att.value = "selectedTile(" + o.toString() + "," + p.toString() + ")";
             img.setAttributeNode(att);
@@ -123,40 +143,35 @@ function generateHtml() {
             document.getElementById(o).appendChild(img);
         }
     }
-    var divf = document.createElement('div');
-    divf.setAttribute("id", "flags")
-    document.getElementById("game").appendChild(divf);
 
-    var h = document.createElement('h3');
-    h.setAttribute("id", "flagL");
-    h.innerHTML="Drapeau restant : "+nbBomb;
-    document.getElementById("flags").appendChild(h);
 }
+
 //vide le game
 function reset() {
     document.getElementById("game").innerHTML = '';
     document.getElementById("maintitle").innerHTML = "Démineur";
-    document.getElementById("body").style.backgroundColor= "slategray";
-    flag=0;
-    flaged=[]
+    document.getElementById("body").style.backgroundColor = "slategray";
+    flag = 0;
+    flaged = []
 }
 
+//action lors du clique sur une case
 function selectedTile(x, y) {
-
+//desactive ignore les drapeau
     if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
         return
     }
+    //desactive les case deja cliquées
     if (grid[x][y] == -1) {
         return;
     }
-
+//si on clique sur une bombe
     if (grid[x][y] == 9) {
         reveal(x, y);
         lose();
         return;
     }
-
-
+    //si on clique sur une case vide
     if (grid[x][y] == 0) {
         reveal(x, y)
         for (j = x - 1; j <= x + 1; j++) {
@@ -169,6 +184,7 @@ function selectedTile(x, y) {
                     continue;
                 if (grid[j][k] > 0)
                     reveal(j, k)
+                //enregistre les case vide pour la recursivité du reveal
                 if (grid[j][k] == 0 && !myinclude(temp, [j, k])) {
                     temp.push([j, k]);
 
@@ -180,22 +196,21 @@ function selectedTile(x, y) {
             autoReveal();
         }
     }
-
+// si on clique sur une case numeroté
     if (grid[x][y] > -1) {
         reveal(x, y);
     }
-
-
-
 }
 
+// permet de reveler les cases tant qu'il y a des cases vide non cliqué
 function autoReveal() {
-    tempx = temp[0][0]
-    tempy = temp [0][1]
-    temp.shift()
-    selectedTile(tempx, tempy)
+    tempx = temp[0][0];
+    tempy = temp [0][1];
+    temp.shift();
+    selectedTile(tempx, tempy);
 }
 
+// fonction includes permettant de verifier la présence de tableau dans des tableau
 function myinclude(tab, element) {
     bool = false
     for (a = 0; a < tab.length; a++) {
@@ -207,12 +222,13 @@ function myinclude(tab, element) {
     return bool
 }
 
-
+// revele une case
 function reveal(x, y) {
+    //desactive le reveal sur case drapeau
     if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
         return
     }
-
+//désactive le clique sur case révélé
     document.getElementById("'" + x.toString() + ':' + y.toString() + "'").onclick = "";
     document.getElementById("'" + x.toString() + ':' + y.toString() + "'").oncontextmenu = "";
     if (grid[x][y] == 0)
@@ -222,16 +238,18 @@ function reveal(x, y) {
     if (grid[x][y] != 0 && grid[x][y] != 9)
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/" + grid[x][y] + ".png";
     setTileValue(x, y, -1);
-    revealed.push([x,y]);
+    //enregistre la position des case révélé
+    revealed.push([x, y]);
+    //verifie la condition de victoire
     win();
 }
 
-
+// en cas de défaite
 function lose() {
     console.log("vous vous etes pris une bombe")
     for (b = 0; b < bombsIndex.length; b++) {
         if (grid[bombsIndex[b][0]][bombsIndex[b][1]] != -1)
-        document.getElementById("'" + bombsIndex[b][0] + ':' + bombsIndex[b][1] + "'").src = "assets/images/bomb.png";
+            document.getElementById("'" + bombsIndex[b][0] + ':' + bombsIndex[b][1] + "'").src = "assets/images/bomb.png";
     }
     for (w = 0; w < grid.length; w++) {
         for (c = 0; c < grid.length; c++) {
@@ -240,39 +258,44 @@ function lose() {
         }
     }
     document.getElementById("maintitle").innerHTML = "Perdu !!";
-    document.getElementById("body").style.backgroundColor= "darkred";
+    document.getElementById("body").style.backgroundColor = "darkred";
     fStop();
 
 }
 
+// en cas de victoire
+function win() {
+    if (nbBomb == grid.length * grid.length - revealed.length) {
+        for (w = 0; w < grid.length; w++) {
+            for (c = 0; c < grid.length; c++) {
+                document.getElementById("'" + w + ':' + c + "'").onclick = "";
 
-function win (){
-        if(nbBomb==grid.length*grid.length-revealed.length) {
-            for (w = 0; w < grid.length; w++) {
-                for (c = 0; c < grid.length; c++) {
-                    document.getElementById("'" + w + ':' + c + "'").onclick = "";
-
-                }
             }
-            document.getElementById("maintitle").innerHTML = "Gagné !!";
-            document.getElementById("body").style.backgroundColor= "green";
-             fStop();
         }
-        else{return}
+        document.getElementById("maintitle").innerHTML = "Gagné !!";
+        document.getElementById("body").style.backgroundColor = "green";
+        fStop();
+    } else {
+        return
     }
+}
 
+// poser/retirer un drapeau
 function markTile(x, y) {
-    if(document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/normal.png"){
-        if(flag>=nbBomb)
+    //poser
+    if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/normal.png") {
+        //gestion du nombre de drapeau autoriser
+        if (flag >= nbBomb)
             return
         document.getElementById("'" + x + ':' + y + "'").src = "assets/images/flag.png";
         flag++;
-    }
-    else{
+    } else {
+        //retrait de drapeau
         document.getElementById("'" + x + ':' + y + "'").src = "assets/images/normal.png";
         flag--;
     }
-    document.getElementById("flagL").innerHTML = "Drapeau restant : " + (nbBomb-flag);
+    //MAJ du label
+    document.getElementById("flagL").innerHTML = "Drapeau restant : " + (nbBomb - flag);
 }
 
 
@@ -324,4 +347,6 @@ function fReset() { //on efface tout
     document.getElementById("chronotime").innerHTML = "00:00";
 }
 
-function fStop(){ clearTimeout(setTm)}
+function fStop() {
+    clearTimeout(setTm)
+}
