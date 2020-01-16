@@ -5,17 +5,40 @@ document.oncontextmenu = function () {
 
 function newGame() {
     reset();
-    fStart();
     grid = new Array();
     bombsIndex = new Array();
     revealed = new Array();
     temp = new Array();
-    size=30;
-    nbBomb=10;
+    getDifficulty();
     generategrid(size);
     generateBombs(nbBomb);
     generateHtml();
-    document.getElementById('game').style.gridTemplateColumns = "repeat("+size + s;
+    fStart();
+}
+function getDifficulty() {
+    mySelect=document.getElementById("mySelect").selectedIndex
+    switch (mySelect) {
+        case 0:
+            alert("Veuillez selectionner une difficultée")
+            break;
+        case 1:
+            size=9;
+            nbBomb=10;
+            break
+        case 2:
+            size=16;
+            nbBomb=40;
+            break;
+        case 3:
+            size=22;
+            nbBomb=100;
+            break
+        case 4:
+            size=30;
+            nbBomb=250;
+            break
+
+    }
 
 }
 
