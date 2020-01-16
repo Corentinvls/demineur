@@ -3,7 +3,17 @@ header{
     width: 80%;
     text-align: center;
 }
+#maintitle,button,#chronotime,#time,#game{
+    font-family: 'Press Start 2P', cursive;
+}
 
+button{
+    weight: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    outline: none;
+}
 body{
     background-color: slategray;
     text-align: center;
@@ -17,7 +27,7 @@ body{
 
 }
 #game {
-    background: #888888;
+    background: slategray;
 }
 .cell {
     width:30px;
