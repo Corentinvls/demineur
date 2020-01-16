@@ -85,24 +85,37 @@ function reset() {
     document.getElementById("game").innerHTML = '';
 }
 function selectedTile(x,y) {
-    console.log(x+","+y)
-    /*for (j = x-1; j <= x+1; j++) {
-        //gestion hors map
+            reveal(x,y);
+            if (grid[x][y] == 9)
+                lose();
+            if(grid[x][y] == 0)
+                revealAdj(x,y);
+}
+function revealAdj(x,y) {
+    reveal(x,y);
+    for (j = x-1; j <= x+1; j++) {
         if (j==-1 || j == (grid.length))
             continue;
-        //defilement de gauche a droite
         for (k = y-1; k <= y+1; k++) {
-            //gestion hors map
             if (k==-1 || k == (grid.length))
                 continue;
-            //incrémente la case si ce n'est pas une bombe
-            reveal();
-            if (grid[j][k] == 9)
-                lose
-
+            reveal(j,k);
         }
-    }*/
+    }
 }
+function reveal(x,y) {
+if(grid[x][y]==0)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/empty.png";
+if(grid[x][y]==9)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/bomb.png";
+if(grid[x][y]!=0 && grid[x][y]!=9)
+    document.getElementById("'"+x.toString()+':'+y.toString()+"'").src= "assets/images/"+grid[x][y]+".png";
+
+}
+function lose(){
+    console.log("vous vous etes pris une bombe")
+}
+
 
 
 
