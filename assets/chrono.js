@@ -254,6 +254,7 @@ function lose() {
     }
     document.getElementById("maintitle").innerHTML = "Perdu !!";
     document.getElementById("body").style.backgroundColor = "darkred";
+    document.getElementById("game").style.backgroundColor = "darkred";
     fStop();
 
 }
@@ -269,6 +270,7 @@ function win() {
         }
         document.getElementById("maintitle").innerHTML = "Gagné !!";
         document.getElementById("body").style.backgroundColor = "green";
+        document.getElementById("game").style.backgroundColor = "green";
         fStop();
     } else {
         return
@@ -299,6 +301,7 @@ function reset() {
     document.getElementById("game").innerHTML = '';
     document.getElementById("maintitle").innerHTML = "Démineur";
     document.getElementById("body").style.backgroundColor = "slategray";
+    document.getElementById("game").style.backgroundColor = "slategray";
     document.getElementById("chronotime").innerHTML ="00:00";
     flag = 0;
     flaged = []
