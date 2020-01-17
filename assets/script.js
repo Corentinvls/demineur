@@ -147,7 +147,6 @@ function generateHtml() {
 }
 
 
-
 //action lors du clique sur une case
 function selectedTile(x, y) {
 //desactive ignore les drapeau
@@ -217,8 +216,8 @@ function myinclude(tab, element) {
 
 // revele une case
 function reveal(x, y) {
-    if(revealed.length==0)
-    fStart();
+    if (revealed.length == 0)
+        fStart();
     //desactive le reveal sur case drapeau
     if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
         return
@@ -251,6 +250,7 @@ function lose() {
     for (w = 0; w < grid.length; w++) {
         for (c = 0; c < grid.length; c++) {
             document.getElementById("'" + w + ':' + c + "'").onclick = "";
+            document.getElementById("'" + w + ':' + c + "'").oncontextmenu = "";
 
         }
     }
@@ -304,7 +304,7 @@ function reset() {
     document.getElementById("maintitle").innerHTML = "Démineur";
     document.getElementById("body").style.backgroundColor = "slategray";
     document.getElementById("game").style.backgroundColor = "slategray";
-    document.getElementById("chronotime").innerHTML ="00:00";
+    document.getElementById("chronotime").innerHTML = "00:00";
     flag = 0;
     flaged = []
 }

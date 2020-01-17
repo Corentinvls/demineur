@@ -1,62 +1,70 @@
-header{
+header {
     margin: 0 auto;
     width: 80%;
     text-align: center;
 }
-#maintitle,button,#chronotime,#time,#game{
+
+#maintitle, button, #chronotime, #time, #game {
     font-family: 'Press Start 2P', cursive;
 }
 
-button{
+button {
     weight: 30px;
     height: 30px;
     border-radius: 10px;
     background-color: lightgreen;
     outline: none;
 }
-button:hover{
+
+button:hover {
     transition: .05s;
     transform: scale(1.1);
 }
-button:active{
+
+button:active {
     transition: .05s;
     transform: scale(0.9);
 }
+
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     padding: 0.7em;
     min-width: 110px;
-    background: url("images/fleche.svg") 98% / 30% no-repeat darkgray ;
+    background: url("images/fleche.svg") 98% / 30% no-repeat darkgray;
     background-size: 5%;
 }
-body{
+
+body {
     background-color: slategray;
     text-align: center;
     justify-content: center;
     align-items: center;
 }
-#game{
-    display:inline-block;
-    vertical-align:top;
-    grid-template-columns:auto ;
+
+#game {
+    display: inline-block;
+    vertical-align: top;
+    grid-template-columns: auto;
     white-space: nowrap;
 
 }
+
 #game {
     background: slategray;
 }
+
 .cell {
-    width:30px;
-    height:30px;
-    background:dimgray;
-    cursor:pointer;
+    width: 30px;
+    height: 30px;
+    background: dimgray;
+    cursor: pointer;
     border: none;
 }
 
 
 .cell:hover {
-    background:#338833;
+    background: #338833;
 }
 
