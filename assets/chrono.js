@@ -228,8 +228,10 @@ function reveal(x, y) {
     document.getElementById("'" + x.toString() + ':' + y.toString() + "'").oncontextmenu = "";
     if (grid[x][y] == 0)
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/empty.png";
-    if (grid[x][y] == 9)
+    if (grid[x][y] == 9) {
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/bomb.png";
+        document.getElementById("'" + x.toString() + ':' + y.toString() + "'").style.backgroundColor = "red";
+    }
     if (grid[x][y] != 0 && grid[x][y] != 9)
         document.getElementById("'" + x.toString() + ':' + y.toString() + "'").src = "assets/images/" + grid[x][y] + ".png";
     setTileValue(x, y, -1);
