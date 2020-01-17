@@ -14,7 +14,7 @@ function newGame() {
     generategrid(size);
     generateBombs(nbBomb);
     generateHtml();
-    fStart();
+
 }
 
 //adapte la difficultée suivant ce que l'utilisateur choisi
@@ -146,14 +146,7 @@ function generateHtml() {
 
 }
 
-//vide le game
-function reset() {
-    document.getElementById("game").innerHTML = '';
-    document.getElementById("maintitle").innerHTML = "Démineur";
-    document.getElementById("body").style.backgroundColor = "slategray";
-    flag = 0;
-    flaged = []
-}
+
 
 //action lors du clique sur une case
 function selectedTile(x, y) {
@@ -224,6 +217,8 @@ function myinclude(tab, element) {
 
 // revele une case
 function reveal(x, y) {
+    if(revealed.length==0)
+    fStart();
     //desactive le reveal sur case drapeau
     if (document.getElementById("'" + x.toString() + ':' + y.toString() + "'").getAttribute("src") == "assets/images/flag.png") {
         return
@@ -298,6 +293,16 @@ function markTile(x, y) {
     document.getElementById("flagL").innerHTML = "Drapeau restant : " + (nbBomb - flag);
 }
 
+//vide le game
+function reset() {
+    fStop();
+    document.getElementById("game").innerHTML = '';
+    document.getElementById("maintitle").innerHTML = "Démineur";
+    document.getElementById("body").style.backgroundColor = "slategray";
+    document.getElementById("chronotime").innerHTML ="00:00";
+    flag = 0;
+    flaged = []
+}
 
 //section du chrono
 var setTm = 0;

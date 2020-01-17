@@ -14,6 +14,23 @@ button{
     background-color: lightgreen;
     outline: none;
 }
+button:hover{
+    transition: .05s;
+    transform: scale(1.1);
+}
+button:active{
+    transition: .05s;
+    transform: scale(0.9);
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0.7em;
+    min-width: 110px;
+    background: url("images/fleche.svg") 98% / 30% no-repeat darkgray ;
+    background-size: 5%;
+}
 body{
     background-color: slategray;
     text-align: center;
@@ -24,6 +41,7 @@ body{
     display:inline-block;
     vertical-align:top;
     grid-template-columns:auto ;
+    white-space: nowrap;
 
 }
 #game {
