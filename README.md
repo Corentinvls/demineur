@@ -1,4 +1,5 @@
 # demineur
 
 Projet découverte Javascript 
-réalisation d'un démineur, 2 jour
+réalisation d'un démineur
+Temps de réalisation 2 jour
